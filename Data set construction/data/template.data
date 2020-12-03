@@ -1,0 +1,4 @@
+classes=20
+train=data/VOC2012_train.txt
+valid=data/VOC2012_test.txt
+names=data/template.names
