@@ -1,6 +1,6 @@
 ## 1. 数据集搭建
 
--[x] 按需修改相关路径后，运行脚本：`main.py`
+- [x] 按需修改相关路径后，运行脚本：`main.py`
 
 所用到的功能封装在`main.py`中，下面依次介绍
 
@@ -30,7 +30,7 @@
 
 需要整理一下，贴近voc2012数据集存放逻辑，以便使用`main.py`
 
--[x] 脚本：`for_IGBTdataset.py`
+- [x] 脚本：`for_IGBTdataset.py`
 
 整理后，如下
 
@@ -70,11 +70,11 @@
 
 这里创建了一个简单的脚本进行评估一致性,需要建立新的文件夹Allempty， 意思是以xml文件为基准进行图片检查，如果图片不存在对应xml文件，那将图片移动到Allempty文件夹中。
 
--[x] 脚本：`check_jpgAndxml.py`
+- [x] 脚本：`check_jpgAndxml.py`
 
 ### 1.2. 按照比例划分训练/测试/验证集合
 
--[x] 脚本：`train_test_val.py`
+- [x] 脚本：`train_test_val.py`
 
 trainval_percent: 表示训练集和验证集占所有图片的比例。(train+val)/(train+val+test)
 
@@ -82,11 +82,11 @@ train_percent: 表示训练集占训练集和验证集的比例。(train)/(train
 
 ### 1.3. 根据xml文件生成Label文件夹中的txt文件
 
--[x] 脚本：`voc_label.py`
+- [x] 脚本：`voc_label.py`
 
 ### 1.4. 构建数据集所需的文件，按照pytorch版本的要求进行整理
 
--[x] 脚本：`make_for_yolov3_torch.py`
+- [x] 脚本：`make_for_yolov3_torch.py`
 
 最后文件夹构成：
 
