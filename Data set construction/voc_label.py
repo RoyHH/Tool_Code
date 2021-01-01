@@ -3,6 +3,8 @@
 需要修改的地方：
 1. sets中替换为自己的数据集
 2. classes中替换为自己的类别
+3. 改 Get_Voc_Lable 中的 image_ids 和 list_file
+4. 改 Convert_Annotation 中的 in_file
 """
 
 import xml.etree.ElementTree as ET
@@ -11,7 +13,7 @@ import os
 from os import listdir, getcwd
 from os.path import join
 
-sets=[('2012', 'train'), ('2012', 'val'), ('2012', 'test')]  #替换为自己的数据集
+sets=[('2021', 'train'), ('2021', 'val'), ('2021', 'test')]  #替换为自己的数据集
 
 # classes = ["person", "bird", "cat", "cow", "dog", "horse", "sheep",
 #            "aeroplane", "bicycle", "boat", "bus", "car", "motorbike", "train",
@@ -33,7 +35,10 @@ def Convert(size, box):  # size[w,h] box[xmin, xmax, ymin. ymax]
 
 def Convert_Annotation(year, image_id, classes):
     # 打开VOCdevkit/VOC2012/Annotations/2008_000008.xml
-    in_file = open('data/VOCdevkit/VOC%s/Annotations/%s.xml'%(year, image_id), 'r', encoding='utf-8')  #将数据集放于当前目录下
+
+    # in_file = open('data/VOCdevkit/VOC%s/Annotations/%s.xml'%(year, image_id), 'r', encoding='utf-8')  #将数据集放于当前目录下
+    in_file = open('data/New Data-jpg/IGBT_Labels/%s.xml' % (image_id), 'r', encoding='utf-8')  # 将数据集放于当前目录下
+
     # 结果写入VOCdevkit/VOC2012/Label/2008_000008.xml
     out_file = open('data/Label/%s.txt'%(image_id), 'w')
     tree = ET.parse(in_file)    #  解析XML
@@ -72,15 +77,21 @@ def Get_Voc_Lable(classes):
     for year, image_set in sets:
         if not os.path.exists('data/Label/'):
             os.makedirs('data/Label/')
-        image_ids = open('data/VOCdevkit/VOC%s/ImageSets/Main/%s.txt'%(year, image_set)).read().strip().split()
+
+        # image_ids = open('data/VOCdevkit/VOC%s/ImageSets/Main/%s.txt'%(year, image_set)).read().strip().split()
+        image_ids = open('data/New Data-jpg/Main/%s.txt'%(image_set)).read().strip().split()
+
         # # print(image_ids)
         # print('*' * 20)
-        list_file = open('data/VOC%s_%s.txt' % (year, image_set), 'w')
+        # list_file = open('data/VOC%s_%s.txt' % (year, image_set), 'w')
+        list_file = open('data/IGBT_DF%s_%s.txt' % (year, image_set), 'w')
+
         for image_id in image_ids:
             # image_id = image_id[:-1]
             print(image_id)
             if image_set == 'test':
                 image_set = 'val'
+
             list_file.write('data/images/%s%s/%s.jpg\n' % (image_set, year, image_id))
             Convert_Annotation(year, image_id, classes)
         list_file.close()

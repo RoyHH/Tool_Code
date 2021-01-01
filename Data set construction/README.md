@@ -1,8 +1,52 @@
 ## 1. 数据集搭建
 
--[x] 直接运行脚本：`main.py`
+-[x] 按需修改相关路径后，运行脚本：`main.py`
 
-所用到的功能封装在`tools`文件夹中，下面依次介绍
+所用到的功能封装在`main.py`中，下面依次介绍
+
+- 特殊性说明：
+
+我自己搭建的数据集，原始排放方式如下
+
+```
+- data
+    - New Data-jpg
+        - IGBT_PIC（存放原始图片样本）
+            - IGBT_fiber_3
+                - 201117_111036
+                    - 201117_111036_0000000541_CAM1_NG.jpg
+                    ... ...
+                ... ...
+            ... ...
+        - Labels (存放原始图片样本对应的标签)
+            - IGBT_fiber_3
+                - 201117_111036
+                    - 201117_111036_0000000541_CAM1_NG.xml
+                    ... ...
+                ... ...
+            ... ...
+        - 数据采集记录.xlsx
+```
+
+需要整理一下，贴近voc2012数据集存放逻辑，以便使用`main.py`
+
+-[x] 脚本：`for_IGBTdataset.py`
+
+整理后，如下
+
+```
+- data
+    - New Data-jpg
+        - IGBT_PIC（存放原始图片样本）
+        - Labels (存放原始图片样本对应的标签)
+        - 数据采集记录.xlsx
+        - IGBT_Img（存放整理后的图片样本）
+            - 201117_111036_0000000541_CAM1_NG.jpg
+            ... ...            
+        - IGBT_Labels (存放整理后的图片样本对应的标签)
+            - 201117_111036_0000000541_CAM1_NG.xml
+            ... ... 
+```
 
 ### 1.1. 数据集检查
 
@@ -78,6 +122,40 @@ train_percent: 表示训练集占训练集和验证集的比例。(train)/(train
     - VOC2012_val.txt
 ```
 
+我自己搭建的数据集，最后文件夹构成：
+
+```
+- data
+    - New Data-jpg
+        - IGBT_PIC（存放原始图片样本）
+        - Labels (存放原始图片样本对应的标签)
+        - 数据采集记录.xlsx
+        - IGBT_Img（存放整理后的图片样本）        
+        - IGBT_Labels (存放整理后的图片样本对应的标签)
+        - Main
+            - test.txt
+            - train.txt
+            - trainval.txt
+            - val.txt
+    - images (用于pytorch版本的图片保存)
+        - train2021
+            - xxxxx.jpg
+            ... ...   
+        - val2021
+            - xxxxx.jpg
+            ... ...
+    - labels (用于pytorch版本的标签保存)
+        - train2021
+            - xxxxx.txt
+            ... ...
+        - val2021
+            - xxxxx.txt
+            ... ...
+    - IGBT_DF2021_test.txt
+    - IGBT_DF2021_train.txt
+    - IGBT_DF2021_val.txt
+```
+
 ## 2. 将构建好的数据集，放到Yolo v3对应的文件夹中
 
 - [x] 将本项目`data`文件夹中`images`，`labels`文件夹放到Yolo v3的`data`文件夹里
@@ -87,6 +165,15 @@ train_percent: 表示训练集占训练集和验证集的比例。(train)/(train
 - [x] 修改`Yolo v3/train.py`中的argparse部分的`coco.data`为`template.data`(或自己的命名的data文件)
 - [x] 修改`Yolo v3/cfg`中使用网络的对应cfg文件，参考[Train Custom Data/5](https://github.com/ultralytics/yolov3/wiki/Train-Custom-Data)
 - [x] 严格按照以上步骤进行执行即可运行
+
+`template.data`文件中的内容如下
+
+```
+classes=20
+train=data/VOC2012_train.txt
+valid=data/VOC2012_test.txt
+names=data/template.names
+```
 
 ## 3. 一些细节
 

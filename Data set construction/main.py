@@ -6,31 +6,58 @@ from train_test_val import Create_Main_Txts
 from voc_label import Get_Voc_Lable
 from make_for_yolov3_torch import Make_for_torch_Yolov3
 
+"""
+需要修改的地方：
+1. 图片样本路径：jpegimages_dir
+2. 标签路径：annotations_dir
+3. 类别：classes
+4. dir1_train、dir1_val、dir2_train、dir2_val 要与 voc_label.py 中的 sets 对应
+5. 训练集和测试集路径：main_trainval、main_test
+"""
+
+def mkdir(path):
+    # 判断路径是否存在，若不存在则创建
+    isExists = os.path.exists(path)
+    if not isExists:
+        # 创建目录操作函数
+        os.makedirs(path)
+
 if __name__ == "__main__":
     ###############################################################################
     # 0. 参数设置
-    jpegimages_dir = r"data/VOCdevkit/VOC2012/JPEGImages"  # 图片保存位置
-    annotations_dir = r"data/VOCdevkit/VOC2012/Annotations"  # 标注文件保存位置
+    # jpegimages_dir = r"data/VOCdevkit/VOC2012/JPEGImages"  # 图片保存位置
+    # annotations_dir = r"data/VOCdevkit/VOC2012/Annotations"  # 标注文件保存位置
+    jpegimages_dir = r"data/New Data-jpg/IGBT_Img"  # 图片保存位置
+    annotations_dir = r"data/New Data-jpg/IGBT_Labels" # 标注文件保存位置
 
     # 分为3份：train,val,test
     trainval_percent = 0.8  # (train+val)/(train+val+test)
     train_percent = 1  # (train)/(train+val)
 
     # 修改类别
-    classes = ["person", "bird", "cat", "cow", "dog", "horse", "sheep",
-               "aeroplane", "bicycle", "boat", "bus", "car", "motorbike", "train",
-               "bottle", "chair", "dining table", "potted plant", "sofa",
-               "tv/monitor"]  #修改为自己的类别，多个类["class1","class2"]
+    # classes = ["person", "bird", "cat", "cow", "dog", "horse", "sheep",
+    #            "aeroplane", "bicycle", "boat", "bus", "car", "motorbike", "train",
+    #            "bottle", "chair", "dining table", "potted plant", "sofa",
+    #            "tv/monitor"]  #修改为自己的类别，多个类["class1","class2"]
+    classes = ["hair", "hairs", "fiber", "fibers", "spot", "foreign", "uneven",
+               "fixed support", "nut"]  #修改为自己的类别，多个类["class1","class2"]
 
     dir_label = r"data/Label"
 
-    dir1_train = r"data/images/train2012"
-    dir1_val = r"data/images/val2012"
-    dir2_train = r"data/labels/train2012"
-    dir2_val = r"data/labels/val2012"
+    # dir1_train = r"data/images/train2012"
+    # dir1_val = r"data/images/val2012"
+    # dir2_train = r"data/labels/train2012"
+    # dir2_val = r"data/labels/val2012"
+    dir1_train = r"data/images/train2021"
+    dir1_val = r"data/images/val2021"
+    dir2_train = r"data/labels/train2021"
+    dir2_val = r"data/labels/val2021"
 
-    main_trainval = r"data/VOCdevkit/VOC2012/ImageSets/Main/trainval.txt"
-    main_test = r"data/VOCdevkit/VOC2012/ImageSets/Main/test.txt"
+
+    # main_trainval = r"data/VOCdevkit/VOC2012/ImageSets/Main/trainval.txt"
+    # main_test = r"data/VOCdevkit/VOC2012/ImageSets/Main/test.txt"
+    main_trainval = r"data/New Data-jpg/Main/trainval.txt"
+    main_test = r"data/New Data-jpg/Main/test.txt"
 
     ##################################################################################
 
@@ -45,6 +72,7 @@ if __name__ == "__main__":
 
     # 3. 将坐标进行归一化，生成labels中的txt文件
     print("=" * 5, "\t3. create txt files in labels\t", "=" * 5)
+    # mkdir('data/images')
     Get_Voc_Lable(classes)
 
     # 4. 构建pytorch版本yolov3格式

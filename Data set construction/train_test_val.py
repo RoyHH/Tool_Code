@@ -1,14 +1,22 @@
 # -*- coding：utf-8 -*-
 # -*- python3.5
+"""
+需要修改的地方：
+1. xmlfilepath
+2. txtsavepath
+"""
+
 import os
 import random
-
 
 def Create_Main_Txts(trainval_percent, train_percent):
     # trainval_percent = 0.8
     # train_percent = 1
-    xmlfilepath = 'data/VOCdevkit/VOC2012/Annotations/'
-    txtsavepath = 'data/VOCdevkit/VOC2012/ImageSets/Main'
+
+    # xmlfilepath = 'data/VOCdevkit/VOC2012/Annotations/'
+    # txtsavepath = 'data/VOCdevkit/VOC2012/ImageSets/Main'
+    xmlfilepath = "data/New Data-jpg/IGBT_Labels"
+    txtsavepath = 'data/New Data-jpg/Main'
 
     if not os.path.exists(txtsavepath):
         os.makedirs(txtsavepath)

@@ -30,6 +30,7 @@ def Make_for_torch_Yolov3(dir_image,
     Make_Dir(dir2_train)
     Make_Dir(dir2_val)
 
+    c = 0
     with open(main_trainval, "r") as f1:
         for line in f1:
             print(line[:-1], '\r', end="")
@@ -40,7 +41,10 @@ def Make_for_torch_Yolov3(dir_image,
                         os.path.join(dir1_train, line[:-1]+".jpg"))
             shutil.copy(os.path.join(dir_label, line[:-1]+".txt"),
                         os.path.join(dir2_train, line[:-1]+".txt"))
+            c += 1
+            print("main_trainval N0. %s" % (c))
 
+    cc = 0
     with open(main_test, "r") as f2:
         for line in f2:
             print(line[:-1], '\r', end="")
@@ -49,6 +53,9 @@ def Make_for_torch_Yolov3(dir_image,
                         os.path.join(dir1_val, line[:-1]+".jpg"))
             shutil.copy(os.path.join(dir_label, line[:-1]+".txt"),
                         os.path.join(dir2_val, line[:-1]+".txt"))
+
+            cc += 1
+            print("main_test N0. %s" % (cc))
 
 # if __name__ == "__main__":
 #     '''

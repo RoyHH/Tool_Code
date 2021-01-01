@@ -1,4 +1,4 @@
-classes=20
-train=data/VOC2012_train.txt
-valid=data/VOC2012_test.txt
+classes=9
+train=data/IGBT_DF2021_train.txt
+valid=data/IGBT_DF2021_test.txt
 names=data/template.names
