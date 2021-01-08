@@ -6,13 +6,13 @@
 ```
 采集到的图像，bmp和jpg格式可能都会有，所以需要将图像统一为一种格式
 ```
-- [x] 脚本文件：`bmp-jpg`
+- [x] 脚本文件：`Bmp-Jpg`
 
 * 图像纪要
 ```
 采集工作中的图像信息纪要读取
 ```
-- [x] 脚本文件：`excel read`
+- [x] 脚本文件：`Excel read`
 
 * 图像尺寸
 ```
@@ -32,11 +32,15 @@
 ```
 在原图上展示标签信息
 ```
-- [x] 脚本文件：`labeled layout_show`
+- [x] 脚本文件：`Labeled layout_show`
 
 #### 1.3 对数据集按照Yolo v3输入格式进行梳理
 
 - [x] 脚本文件：`Data set construction`
+
+#### 1.4 对训练结果（Excel 文件）曲线展示
+
+- [x] 脚本文件：`Draw Excel`
 
 ## 2 其他
 
