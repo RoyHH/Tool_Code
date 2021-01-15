@@ -16,7 +16,7 @@ def Check_JpgXml(jpeg_dir, annot_dir):
             cnt += 1
 
             os.remove(jpeg_dir + '/' + f_name + ".jpg")
-            print("删除“图片和对应的xml”不匹配的文件 %s"%(jpeg_dir + '/' + f_name + ".jpg"))
+            # print("删除“图片和对应的xml”不匹配的文件 %s"%(jpeg_dir + '/' + f_name + ".jpg"))
 
     pBar1 = tqdm(total=len(os.listdir(annot_dir)))
     cnt1 = 0
@@ -28,7 +28,7 @@ def Check_JpgXml(jpeg_dir, annot_dir):
             cnt1 += 1
 
             os.remove(annot_dir + '/' + f_name + ".xml")
-            print("删除“图片和对应的xml”不匹配的文件 %s"%(annot_dir + '/' + f_name + ".xml"))
+            # print("删除“图片和对应的xml”不匹配的文件 %s"%(annot_dir + '/' + f_name + ".xml"))
 
     if cnt > 0:
         print("有%d个文件不符合要求。" % (cnt1))

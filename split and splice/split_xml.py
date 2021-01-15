@@ -70,10 +70,10 @@ def box_dis_save(x1, y1, x2, y2, objects):
             box_split = [(1 - x1_xmin) * x1 + x1_xmin * xmin - x1, (1 - y1_ymin) * y1 + y1_ymin * ymin - y1,
                          (1 - x2_xmax) * x2 + x2_xmax * xmax - x1, (1 - y2_ymax) * y2 + y2_ymax * ymax - y1]
 
-            x1_list.text = str(box_split[0])
-            y1_list.text = str(box_split[1])
-            x2_list.text = str(box_split[2])
-            y2_list.text = str(box_split[3])
+            x1_list.text = str(int(box_split[0]))
+            y1_list.text = str(int(box_split[1]))
+            x2_list.text = str(int(box_split[2]))
+            y2_list.text = str(int(box_split[3]))
             print("xmin_g, ymin_g, xmax_g, ymax_g = [%s, %s, %s, %s]" % (
                 x1_list.text, y1_list.text, x2_list.text, y2_list.text))
 
@@ -116,7 +116,7 @@ def split_xmlfile(out_xml, xmlFile, xmlFile_split_new, x1=900, y1=900, x2=1500, 
     filenamelist = root.find("filename")
     # print("filenamelist = ", filenamelist)
     filename = filenamelist.text
-    print("fikename = ", filename)
+    print("filename = ", filename)
 
     # 拆分object
     obeject_split(x1, y1, x2, y2, root)
