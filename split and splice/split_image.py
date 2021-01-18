@@ -20,7 +20,22 @@ def Col_split(img, image_pre, ext, a, row_i, sum_cols, Num_vertical, split_colsi
             col_j = b + split_colsize
             print("可舍弃的情况: b, col_j = [%s, %s]" % (b, col_j))
 
-            part_img = img[int(math.floor(b)):int(math.ceil(col_j)), int(math.floor(a)):int(math.ceil(row_i))]
+            a = int(math.floor(a))
+            row_i = int(math.ceil(row_i))
+            b = int(math.floor(b))
+            col_j = int(math.ceil(col_j))
+
+            if row_i > img.shape[1]:
+                row_i = img.shape[1]
+                print("width 修改成功")
+            if col_j > img.shape[0]:
+                col_j = img.shape[0]
+                print("height 修改成功")
+
+            part_img = img[b:col_j, a:row_i]   # img[y, x]
+            print("a, row_i, b, col_j = [%s, %s, %s, %s]" % (
+                a, row_i, b, col_j))
+
             newFileName = image_pre + "_split" + x + "dy" + "-" + str(i) + str(j) + ext
             print("什么情况： ", newFileName)
             cv2.imwrite(Outpath + newFileName, part_img)
@@ -34,7 +49,23 @@ def Col_split(img, image_pre, ext, a, row_i, sum_cols, Num_vertical, split_colsi
                 col_j = sum_cols
             print("重叠覆盖的情况: b, col_j = [%s, %s]" % (b, col_j))
 
-            part_img = img[int(math.floor(b)):int(math.ceil(col_j)), int(math.floor(a)):int(math.ceil(row_i))]
+            a = int(math.floor(a))
+            row_i = int(math.ceil(row_i))
+            b = int(math.floor(b))
+            col_j = int(math.ceil(col_j))
+
+            if row_i > img.shape[1]:
+                row_i = img.shape[1]
+                print("width 修改成功")
+            if col_j > img.shape[0]:
+                col_j = img.shape[0]
+                print("height 修改成功")
+
+            part_img = img[b:col_j, a:row_i]   # img[y, x]
+            print("a, row_i, b, col_j = [%s, %s, %s, %s]" % (
+                a, row_i, b, col_j))
+
+            # part_img = img[int(math.floor(b)):int(math.ceil(col_j)), int(math.floor(a)):int(math.ceil(row_i))]
             newFileName = image_pre + "_split" + x + "-" + str(i) + str(j) + ext
             print("啥玩意： ", newFileName)
             cv2.imwrite(Outpath + newFileName, part_img)

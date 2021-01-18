@@ -3,6 +3,7 @@ import cv2
 import math
 from split_xml import *
 from check_jpgAndxml import *
+from check_xml_width_height import *
 import glob
 
 
@@ -27,6 +28,14 @@ def Col_split(img, image_pre, ext, a, row_i, sum_cols, Num_vertical, split_colsi
             row_i = int(math.ceil(row_i))
             b = int(math.floor(b))
             col_j = int(math.ceil(col_j))
+
+            if row_i > img.shape[1]:
+                row_i = img.shape[1]
+                print("width 修改成功")
+            if col_j > img.shape[0]:
+                col_j = img.shape[0]
+                print("height 修改成功")
+
             part_img = img[b:col_j, a:row_i]   # img[y, x]
             print("a, row_i, b, col_j = [%s, %s, %s, %s]" % (
                 a, row_i, b, col_j))
@@ -55,6 +64,14 @@ def Col_split(img, image_pre, ext, a, row_i, sum_cols, Num_vertical, split_colsi
             row_i = int(math.ceil(row_i))
             b = int(math.floor(b))
             col_j = int(math.ceil(col_j))
+
+            if row_i > img.shape[1]:
+                row_i = img.shape[1]
+                print("width 修改成功")
+            if col_j > img.shape[0]:
+                col_j = img.shape[0]
+                print("height 修改成功")
+
             part_img = img[b:col_j, a:row_i]   # img[y, x]
             print("a, row_i, b, col_j = [%s, %s, %s, %s]" % (
                 a, row_i, b, col_j))
@@ -70,7 +87,7 @@ def Col_split(img, image_pre, ext, a, row_i, sum_cols, Num_vertical, split_colsi
             split_xmlfile(out_xml, xmlFile, new_xmlFileName, x1=a, y1=b, x2=row_i, y2=col_j)
 
 '''此处的split_rowsize, split_colsize根据裁剪需要修改'''
-def Split_Img(img, fileName, split_rowsize=1000, split_colsize=1000 , row_dif=None, col_dif=None, Outpath=None):
+def Split_Img(img, fileName, split_rowsize=500, split_colsize=500 , row_dif=None, col_dif=None, Outpath=None):
     image_pre, ext = os.path.splitext(fileName)
 
     sum_cols = img.shape[0]   # the image height
@@ -121,7 +138,7 @@ def InFile_do(Imgpath, Outpath):
     for fileName in os.listdir(Imgpath):
         img = cv2.imread(Imgpath + fileName)
         img1 = img.copy()
-        Split_Img(img1, fileName, row_dif=50, col_dif=50, Outpath=Outpath)
+        Split_Img(img1, fileName, row_dif=30, col_dif=30, Outpath=Outpath)
 
 
 if __name__ == '__main__':
@@ -135,9 +152,8 @@ if __name__ == '__main__':
 
     imgae_re = glob.glob('image_out/*')
     xml_re = glob.glob('xml_out/*')
-
-    for i in imgae_re: os.remove(i)
-    for j in xml_re: os.remove(j)
+    for i in imgae_re: os.remove(i); print("i = ", i)
+    for j in xml_re: os.remove(j); print("j = ", j)
 
     files_xml = sorted(os.listdir(path_xml))  # 得到文件夹下所有文件名称
 
@@ -162,6 +178,18 @@ if __name__ == '__main__':
 
     # 对照jpg和xml，删除无用的jpg文件
     Check_JpgXml(jpeg_dir=OutFile_path, annot_dir=out_xml)
+
+    # check并修正拆分后的image的width和height在xml中的是否记录正确
+    # out_xml_check = 'xml_out_check'
+    # mkdir(out_xml_check)
+    # xml_re = glob.glob('xml_out_m_check/*')
+    # for i in xml_re: os.remove(i); print("i = ", i)
+    #
+    # for xmlFile in files_xml:
+    #     if not os.path.isdir(xmlFile):  # 判断是否是文件夹，不是文件夹才打开
+    #         # print(xmlFile)
+    #         shutil.copyfile(out_xml + "\\" + xmlFile, out_xml_check + "\\" + xmlFile)
+    #         check_xmlfile(out_xml_check, xmlFile, OutFile_path)
 
 
 

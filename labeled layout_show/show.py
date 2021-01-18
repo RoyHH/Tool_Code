@@ -1,6 +1,7 @@
 import os
 import xml.dom.minidom
 import cv2 as cv
+import glob
 
 def mkdir(path):
     # 判断路径是否存在，若不存在则创建
@@ -12,9 +13,14 @@ def mkdir(path):
 def main():
     # 图片路径
     ImgPath = 'Img/'
+    # ImgPath = '../split and splice/image_out_m/'
     # 标签路径
     AnnoPath = 'Anno/'
+    # AnnoPath = '../split and splice/xml_out_m/'
 
+    mkdir("layout_show/")
+    imgae_re = glob.glob('layout_show/*')
+    for i in imgae_re: os.remove(i)
 
     imagelist = os.listdir(ImgPath)
     for image in imagelist:
@@ -57,8 +63,23 @@ def main():
                            thickness=3)
                 # cv.imshow('head', img)    #尽量不要每张都展示，没啥用
 
-            mkdir("layout_show/")
             cv.imwrite("layout_show/"+ image_pre+ ".jpg", img)   #save picture
 
 if __name__ == '__main__':
    main()
+
+   ImgPath = "Img/"
+   outpatch = "1/"
+
+   imagelist = os.listdir(ImgPath)
+   for image in imagelist:
+        image_pre, ext = os.path.splitext(image)
+        imgfile = ImgPath + image
+
+        img = cv.imread(imgfile)
+
+        part_img = img[0:100, 0:300]
+
+        print("part_img = img[0:100, 0:300]")
+
+        cv.imwrite(outpatch + image_pre + ".jpg", part_img)

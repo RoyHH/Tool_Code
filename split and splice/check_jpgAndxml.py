@@ -36,7 +36,8 @@ def Check_JpgXml(jpeg_dir, annot_dir):
         print("所有图片和对应的xml文件都是一一对应的。")
 
 
-# if __name__ == "__main__":
-#     dir1 = r"data/VOCdevkit/VOC2012/JPEGImages"
-#     dir2 = r"data/VOCdevkit/VOC2012/Annotations"
-#     checkJpgXml(dir1, dir2)
+if __name__ == "__main__":
+    # dir1 = r"../split and splice/image_out_m_flit"
+    dir1 = r"../split and splice/image_out_m"
+    dir2 = r"../split and splice/xml_out_m"
+    Check_JpgXml(dir1, dir2)

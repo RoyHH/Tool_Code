@@ -117,6 +117,9 @@ def split_xmlfile(out_xml, xmlFile, xmlFile_split_new, x1=900, y1=900, x2=1500, 
     # print("filenamelist = ", filenamelist)
     filename = filenamelist.text
     print("filename = ", filename)
+    xml_pre, ext = os.path.splitext(xmlFile_split_new)
+    filenamelist.text = str(xml_pre)
+    print("xmlFile_split_new = ", xml_pre)
 
     # 拆分object
     obeject_split(x1, y1, x2, y2, root)
